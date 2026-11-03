@@ -15,8 +15,19 @@ variable "gke_cluster_name" {
   description = "Name of your existing GKE cluster"
 }
 
-variable "github_repo_url" {
-  description = "URL of your GitHub repository"
+variable "cloud_source_repo_name" {
+  description = "Exact name of an existing Cloud Source Repositories repo connected to Cloud Build (not a GitHub URL)"
+  type        = string
+  validation {
+    condition     = length(trimspace(var.cloud_source_repo_name)) > 0 && !strcontains(var.cloud_source_repo_name, "/")
+    error_message = "Specify a Cloud Source Repositories repository name, not a URL or path."
+  }
+}
+
+variable "build_branch" {
+  description = "Git branch to build from the connected source repository"
+  type        = string
+  default     = "main"
 }
 
 variable "cloud_build_trigger_name" {
@@ -34,8 +45,3 @@ variable "k8s_manifests_directory" {
   default     = "/kubernetes/prod"
 }
 
-# variable "github_repo_name" {
-#   description = "Name of the GitHub repository"
-# }
-
-# default     = basename(var.github_repo_url)
