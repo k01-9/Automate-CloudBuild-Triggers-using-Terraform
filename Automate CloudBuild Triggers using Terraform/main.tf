@@ -1,6 +1,6 @@
 // Adding a repository, create triggers for cloud build, build the image, deploy to GKE cluster.
 locals {
-    github_repo_name = replace(lower(basename(var.github_repo_url)), ".git$", "")
+    image_repo_name = lower(var.cloud_source_repo_name)
 }
 
 resource "google_cloudbuild_trigger" "github_trigger" {
@@ -8,8 +8,8 @@ resource "google_cloudbuild_trigger" "github_trigger" {
   project  = var.project_id
   
   trigger_template {
-    branch_name = "main"
-    repo_name   = var.github_repo_url
+    branch_name = var.build_branch
+    repo_name   = var.cloud_source_repo_name
   }
 
   substitutions = {
@@ -17,13 +17,13 @@ resource "google_cloudbuild_trigger" "github_trigger" {
     _REGION                 = var.region
     _DOCKERFILE_PATH        = var.dockerfile_path
     _K8S_MANIFESTS_DIRECTORY = var.k8s_manifests_directory
-    _IMAGE_REPO_NAME        = local.github_repo_name
+    _IMAGE_REPO_NAME        = local.image_repo_name
   }
   
   build {
     step {
         name = "gcr.io/cloud-builders/docker"
-        args = ["build", "-t", "gcr.io/${var.project_id}/${local.github_repo_name}:latest", var.dockerfile_path]      
+        args = ["build", "-t", "gcr.io/${var.project_id}/${local.image_repo_name}:latest", var.dockerfile_path]      
     }
 
     step {
