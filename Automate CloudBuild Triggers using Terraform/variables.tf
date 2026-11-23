@@ -3,7 +3,7 @@ variable "project_id" {
 }
 
 variable "sa_token" {
-    description = "Your ServiceAccount File Path"
+  description = "Your ServiceAccount File Path"
 }
 
 variable "region" {
@@ -34,8 +34,19 @@ variable "k8s_manifests_directory" {
   default     = "/kubernetes/prod"
 }
 
-# variable "github_repo_name" {
-#   description = "Name of the GitHub repository"
-# }
+variable "cloud_build_repository_name" {
+  description = "Name of the repository already connected to Cloud Build (defaults to the GitHub repository slug)"
+  type        = string
+  default     = null
+}
 
-# default     = basename(var.github_repo_url)
+variable "branch_pattern" {
+  description = "Regular expression matching branches that should start a build"
+  type        = string
+  default     = "^main$"
+
+  validation {
+    condition     = can(regexall(var.branch_pattern, ""))
+    error_message = "branch_pattern must be a valid regular expression."
+  }
+}
