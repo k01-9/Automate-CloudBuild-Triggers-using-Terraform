@@ -26,12 +26,18 @@ variable "cloud_build_trigger_name" {
 
 variable "dockerfile_path" {
   description = "Path to the Dockerfile in the GitHub repository"
-  default     = "./"
+  default     = "Dockerfile"
+}
+
+variable "build_context" {
+  description = "Docker build context relative to the checked-out repository"
+  type        = string
+  default     = "."
 }
 
 variable "k8s_manifests_directory" {
   description = "Path to the Kubernetes manifests directory"
-  default     = "/kubernetes/prod"
+  default     = "kubernetes/prod"
 }
 
 variable "cloud_build_repository_name" {
