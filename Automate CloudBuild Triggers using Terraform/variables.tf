@@ -3,7 +3,9 @@ variable "project_id" {
 }
 
 variable "sa_token" {
-  description = "Your ServiceAccount File Path"
+  description = "Optional service account JSON file path; omit to use Application Default Credentials"
+  type        = string
+  default     = null
 }
 
 variable "region" {
