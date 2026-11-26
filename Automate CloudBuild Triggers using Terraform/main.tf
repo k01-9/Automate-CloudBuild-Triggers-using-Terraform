@@ -9,6 +9,9 @@ resource "google_cloudbuild_trigger" "github_trigger" {
   name    = var.cloud_build_trigger_name
   project = var.project_id
 
+  included_files = var.included_files
+  ignored_files  = var.ignored_files
+
   trigger_template {
     branch_name = var.branch_pattern
     repo_name   = coalesce(var.cloud_build_repository_name, local.github_repo_name)

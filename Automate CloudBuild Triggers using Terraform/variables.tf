@@ -75,3 +75,15 @@ variable "gke_cluster_location" {
   type        = string
   default     = null
 }
+
+variable "included_files" {
+  description = "Repository-relative path globs that can start a build; empty allows all paths"
+  type        = list(string)
+  default     = []
+}
+
+variable "ignored_files" {
+  description = "Repository-relative path globs excluded from trigger matching"
+  type        = list(string)
+  default     = []
+}
