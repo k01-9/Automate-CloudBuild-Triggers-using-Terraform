@@ -27,3 +27,21 @@ terraform plan
 ```
 
 Review the plan before applying it. Creating the trigger enables builds and deployments when matching commits arrive.
+
+## Customize and inspect the trigger
+
+Use `image_repository` for a dedicated Artifact Registry image path such as
+`us-central1-docker.pkg.dev/my-project/my-repo/my-app`. Match that path in your
+Kubernetes manifests. When omitted, the module uses the project's `gcr.io` path.
+
+For a zonal cluster, set `gke_cluster_location` to its zone and keep `region`
+set to the provider region. For example, use `us-central1-a` and `us-central1`
+respectively.
+
+Set `included_files` and `ignored_files` to restrict builds in a monorepo.
+With `included_files = ["app/**", "kubernetes/**"]` and
+`ignored_files = ["**/*.md"]`, changes outside those directories and
+Markdown-only changes do not start a build.
+
+After applying, run `terraform output trigger_id` to look up the trigger and
+`terraform output deployment_image_repository` to check the configured image path.
