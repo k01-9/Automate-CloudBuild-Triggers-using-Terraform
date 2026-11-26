@@ -69,3 +69,9 @@ variable "image_repository" {
     error_message = "image_repository must be an untagged image path such as us-central1-docker.pkg.dev/project/repository/app."
   }
 }
+
+variable "gke_cluster_location" {
+  description = "Region or zone of the target GKE cluster; defaults to the provider region"
+  type        = string
+  default     = null
+}

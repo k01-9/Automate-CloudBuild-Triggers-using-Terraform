@@ -32,7 +32,7 @@ resource "google_cloudbuild_trigger" "github_trigger" {
         "--filename", var.k8s_manifests_directory,
         "--image", local.image,
         "--cluster", var.gke_cluster_name,
-        "--location", var.region,
+        "--location", coalesce(var.gke_cluster_location, var.region),
       ]
     }
   }
