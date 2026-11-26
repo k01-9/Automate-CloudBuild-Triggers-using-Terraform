@@ -1,6 +1,7 @@
 // Adding a repository, create triggers for cloud build, build the image, deploy to GKE cluster.
 locals {
-  image            = "gcr.io/${var.project_id}/${local.github_repo_name}:$BUILD_ID"
+  image_repository = coalesce(var.image_repository, "gcr.io/${var.project_id}/${local.github_repo_name}")
+  image            = "${local.image_repository}:$BUILD_ID"
   github_repo_name = trimsuffix(lower(basename(trimsuffix(trimspace(var.github_repo_url), "/"))), ".git")
 }
 

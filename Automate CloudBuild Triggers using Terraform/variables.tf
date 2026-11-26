@@ -58,3 +58,14 @@ variable "branch_pattern" {
     error_message = "branch_pattern must be a valid regular expression."
   }
 }
+
+variable "image_repository" {
+  description = "Untagged destination image path, including the registry hostname"
+  type        = string
+  default     = null
+
+  validation {
+    condition     = var.image_repository == null ? true : can(regex("^[a-z0-9.-]+(/[a-z0-9._-]+)+$", var.image_repository))
+    error_message = "image_repository must be an untagged image path such as us-central1-docker.pkg.dev/project/repository/app."
+  }
+}
