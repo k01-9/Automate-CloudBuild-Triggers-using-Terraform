@@ -87,3 +87,9 @@ variable "ignored_files" {
   type        = list(string)
   default     = []
 }
+
+variable "trigger_disabled" {
+  description = "Create or keep the trigger disabled so repository pushes do not start builds"
+  type        = bool
+  default     = false
+}

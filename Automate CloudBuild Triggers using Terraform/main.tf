@@ -6,8 +6,9 @@ locals {
 }
 
 resource "google_cloudbuild_trigger" "github_trigger" {
-  name    = var.cloud_build_trigger_name
-  project = var.project_id
+  name     = var.cloud_build_trigger_name
+  project  = var.project_id
+  disabled = var.trigger_disabled
 
   included_files = var.included_files
   ignored_files  = var.ignored_files
