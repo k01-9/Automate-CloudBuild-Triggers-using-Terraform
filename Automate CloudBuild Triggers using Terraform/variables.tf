@@ -93,3 +93,14 @@ variable "trigger_disabled" {
   type        = bool
   default     = false
 }
+
+variable "build_timeout_seconds" {
+  description = "Maximum duration of a triggered build in seconds"
+  type        = number
+  default     = 3600
+
+  validation {
+    condition     = var.build_timeout_seconds >= 1 && var.build_timeout_seconds <= 86400 && floor(var.build_timeout_seconds) == var.build_timeout_seconds
+    error_message = "build_timeout_seconds must be a whole number from 1 to 86400."
+  }
+}

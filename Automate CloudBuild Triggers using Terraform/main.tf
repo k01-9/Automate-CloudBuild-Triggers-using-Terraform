@@ -19,6 +19,8 @@ resource "google_cloudbuild_trigger" "github_trigger" {
   }
 
   build {
+    timeout = "${var.build_timeout_seconds}s"
+
     step {
       name = "gcr.io/cloud-builders/docker"
       args = ["build", "-f", var.dockerfile_path, "-t", local.image, var.build_context]
