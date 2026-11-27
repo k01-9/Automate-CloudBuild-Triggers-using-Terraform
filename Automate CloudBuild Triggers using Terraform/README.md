@@ -50,3 +50,14 @@ After applying, run `terraform output trigger_id` to look up the trigger and
 
 With Terraform 1.7 or later, run `terraform test` after `terraform init`.
 The tests use a mocked Google provider and do not contact Google Cloud.
+
+## Stage a disabled trigger
+
+Copy `staged.auto.tfvars.example` to `staged.auto.tfvars` and replace the
+example values. It overrides the tracked sample settings and starts with
+`trigger_disabled = true`, so repository pushes cannot start builds. When the
+configuration is ready to receive pushes, set it to `false` and review the
+Terraform plan before applying the change.
+
+`build_timeout_seconds` defaults to 3600 seconds and accepts whole numbers
+from 1 to 86400.

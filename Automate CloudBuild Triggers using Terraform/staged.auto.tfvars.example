@@ -1,0 +1,14 @@
+# Copy to staged.auto.tfvars and replace the sample values.
+project_id                  = "example-project"
+github_repo_url             = "https://github.com/example/example-app.git"
+cloud_build_repository_name = "example-app"
+cloud_build_trigger_name    = "example-app-staged"
+gke_cluster_name            = "example-cluster"
+region                      = "us-central1"
+gke_cluster_location        = "us-central1-a"
+sa_token                    = null
+
+image_repository      = "us-central1-docker.pkg.dev/example-project/images/example-app"
+included_files        = ["app/**", "kubernetes/**", "Dockerfile"]
+trigger_disabled      = true
+build_timeout_seconds = 900
