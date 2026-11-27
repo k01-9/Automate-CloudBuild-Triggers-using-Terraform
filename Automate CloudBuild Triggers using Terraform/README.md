@@ -45,3 +45,8 @@ Markdown-only changes do not start a build.
 
 After applying, run `terraform output trigger_id` to look up the trigger and
 `terraform output deployment_image_repository` to check the configured image path.
+
+## Test the trigger configuration
+
+With Terraform 1.7 or later, run `terraform test` after `terraform init`.
+The tests use a mocked Google provider and do not contact Google Cloud.
